@@ -1,8 +1,6 @@
 using MongoDB.Driver;
 using MongoDB.Bson;
 
-using mongoAuth.Data;
-
 
 const string connectionUri = "mongodb+srv://admin:Wk2hn25gmfv1JpFh@comp4956.9hedzlx.mongodb.net/";
 
