@@ -26,12 +26,16 @@
     <p>@ViewBag.Message</p>
 }
 
-<select id="fileNames" name="fileNames">
-    @foreach (var fileName in ViewBag.FileNames)
-    {
-        <option value="@fileName">@fileName</option>
-    }
-</select>
+@using (Html.BeginForm("DisplayFileContents", "Home", FormMethod.Post))
+{
+    <select id="fileNames" name="fileName">
+        @foreach (var fileName in ViewBag.FileNames)
+        {
+            <option value="@fileName">@fileName</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">Display File</button>
+}
 
 <script>
     document.getElementById('uploadTextForm').addEventListener('submit', function(event) {

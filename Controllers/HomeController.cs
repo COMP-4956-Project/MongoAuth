@@ -48,6 +48,17 @@ public class HomeController : Controller
         return RedirectToAction("Index");
     }
 
+   public ActionResult DisplayFileContents(string fileName)
+{
+    using (var stream = gridFS.OpenDownloadStreamByName(fileName))
+    {
+        var reader = new StreamReader(stream);
+        var fileContent = reader.ReadToEnd();
+        ViewBag.FileName = fileName;
+        return View((object)fileContent);
+    }
+}
+
     public List<string> ListAllFiles()
     {
         var filter = Builders<GridFSFileInfo>.Filter.Empty;
