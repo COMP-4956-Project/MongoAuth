@@ -37,7 +37,7 @@ public class HomeController : Controller
     [HttpPost]
     public ActionResult UploadText(string name, string content)
     {
-        var fileName = name + ".txt";
+        var fileName = name + ".json";
 
         byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content);
 
@@ -72,6 +72,19 @@ public class HomeController : Controller
 
         return fileNames;
     }
+
+    public ActionResult DeleteFile(string fileName)
+{
+    var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, fileName);
+    var fileInfo = gridFS.Find(filter).FirstOrDefault();
+
+    if (fileInfo != null)
+    {
+        gridFS.Delete(fileInfo.Id);
+    }
+
+    return RedirectToAction("Index");
+}
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

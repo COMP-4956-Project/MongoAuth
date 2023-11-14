@@ -37,6 +37,17 @@
     <button type="submit" class="btn btn-primary">Display File</button>
 }
 
+@using (Html.BeginForm("DeleteFile", "Home", FormMethod.Post))
+{
+    <select id="fileNames" name="fileName">
+        @foreach (var fileName in ViewBag.FileNames)
+        {
+            <option value="@fileName">@fileName</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-danger">Delete File</button>
+}
+
 <script>
     document.getElementById('uploadTextForm').addEventListener('submit', function(event) {
         var name = document.getElementById('name').value;
