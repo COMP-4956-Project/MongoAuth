@@ -33,20 +33,16 @@ public class HomeController : Controller
         return View();
     }
 
-        [HttpPost]
-    public ActionResult UploadText()
+    [HttpPost]
+    public ActionResult UploadText(string name, string content)
     {
-        string textContent = "This is the json content";
+        var fileName = name + ".txt";
 
-        var fileName = "jas0n.txt";
-
-        byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(textContent);
+        byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content);
 
         var stream = new MemoryStream(contentBytes);
 
         ObjectId fileId = gridFS.UploadFromStream(fileName, stream);
-        // Console.WriteLine("File created and data written to GridFS with ID: " + fileId);
-
 
         return RedirectToAction("Index");
     }

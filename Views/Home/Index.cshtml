@@ -12,13 +12,28 @@
     <p>@ViewBag.Message</p>
 }
 
-@using (Html.BeginForm("UploadText", "HomeController", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UploadText", "HomeController", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadTextForm" }))
 {
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="content">Message:</label>
+        <input type="text" name="content" id="content" class="form-control" />
+    </div>
     <button type="submit" class="btn btn-primary" asp-action="UploadText">Upload Text</button>
     <p>@ViewBag.Message</p>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<script>
+    document.getElementById('uploadTextForm').addEventListener('submit', function(event) {
+        var name = document.getElementById('name').value;
+        var content = document.getElementById('content').value;
+
+        if (!name || !content) {
+            event.preventDefault();
+            alert('Both fields are required.');
+        }
+    });
+</script>
