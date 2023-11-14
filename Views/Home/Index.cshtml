@@ -2,6 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
+@using (Html.BeginForm("Upload", "HomeController", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="file">Select a file to upload:</label>
+        <input type="file" name="file" id="file" accept=".txt,.py,.json" />
+    </div>
+    <button type="submit" class="btn btn-primary" asp-action="Upload">Upload File</button>
+    <p>@ViewBag.Message</p>
+}
+
+@using (Html.BeginForm("UploadText", "HomeController", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <button type="submit" class="btn btn-primary" asp-action="UploadText">Upload Text</button>
+    <p>@ViewBag.Message</p>
+}
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
