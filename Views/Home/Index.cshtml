@@ -26,6 +26,13 @@
     <p>@ViewBag.Message</p>
 }
 
+<select id="fileNames" name="fileNames">
+    @foreach (var fileName in ViewBag.FileNames)
+    {
+        <option value="@fileName">@fileName</option>
+    }
+</select>
+
 <script>
     document.getElementById('uploadTextForm').addEventListener('submit', function(event) {
         var name = document.getElementById('name').value;

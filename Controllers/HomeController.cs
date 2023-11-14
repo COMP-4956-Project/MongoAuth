@@ -25,6 +25,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ViewBag.FileNames = ListAllFiles();
         return View();
     }
 
@@ -45,6 +46,20 @@ public class HomeController : Controller
         ObjectId fileId = gridFS.UploadFromStream(fileName, stream);
 
         return RedirectToAction("Index");
+    }
+
+    public List<string> ListAllFiles()
+    {
+        var filter = Builders<GridFSFileInfo>.Filter.Empty;
+        var filesInfo = gridFS.Find(filter).ToList();
+
+        List<string> fileNames = new List<string>();
+        foreach (var fileInfo in filesInfo)
+        {
+            fileNames.Add(fileInfo.Filename);
+        }
+
+        return fileNames;
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
