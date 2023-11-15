@@ -38,9 +38,7 @@ public class HomeController : Controller
     public ActionResult UploadText(string name, string content)
     {
         var fileName = name + ".json";
-
         byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content);
-
         var stream = new MemoryStream(contentBytes);
 
         ObjectId fileId = gridFS.UploadFromStream(fileName, stream);
@@ -81,6 +79,21 @@ public class HomeController : Controller
     if (fileInfo != null)
     {
         gridFS.Delete(fileInfo.Id);
+    }
+
+    return RedirectToAction("Index");
+}
+
+[HttpPost]
+public ActionResult SaveFile(string fileName, string fileContents)
+{
+    // Delete the existing file
+    DeleteFile(fileName);
+
+    // Create a new file with the updated content
+    using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(fileContents)))
+    {
+        gridFS.UploadFromStream(fileName, stream);
     }
 
     return RedirectToAction("Index");

@@ -1,6 +1,11 @@
 @model string
 
 <div>
-    <h1>File Contents for @ViewBag.FileName</h1>
-    <pre>@Model</pre>
+    @using (Html.BeginForm("SaveFile", "Home", FormMethod.Post))
+    {
+        <input type="hidden" name="fileName" value="@ViewBag.FileName" />
+        <h1>File Contents for @ViewBag.FileName</h1>
+        <textarea name="fileContents" rows="20" cols="60">@Model</textarea>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    }
 </div>
